@@ -23,7 +23,7 @@ public class LogFileRouting {
 	public static final int SeverityPosition = 4;
 	public static final int ErrorPosition = 3;
 	
-	
+	///amr
 	public List<Defect> defList = new ArrayList<Defect>();
 	public List<App> appList = new ArrayList<App>();
 	public List<DefectInstance> defInsList = new ArrayList<DefectInstance>();
