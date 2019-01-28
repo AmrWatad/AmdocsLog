@@ -13,7 +13,7 @@ import com.example.DataBase.domain.ViewDefects;
 public class ViewDefectController {
 	@Autowired
 	private DefectInstanceRepository repository;
-
+////
 	@RequestMapping("/ViewDefects")
 	public ArrayList<ViewDefects> getViewDefects() {
 		return repository.getViewDefects();
