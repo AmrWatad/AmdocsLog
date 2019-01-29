@@ -14,6 +14,7 @@ import com.example.DataBase.Repository.SolutionRepository;
 import com.example.DataBase.Routing.LogFileRouting;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -44,10 +45,19 @@ public class DataBaseApplication {
     	   
     	   String searchStr = "Caused by";
    			File file = new File("CMServer.20170924_1557.log");
+   			File file2 = new File("CMServer.20170914_2028.log");
+ArrayList<File> fils=new ArrayList();
+fils.add(file);
+fils.add(file2);
    			LogFileRouting routingtotables = new LogFileRouting();
-   			routingtotables.SearchDefects(file, searchStr,appRepository,defectRepository, logFileRepository,defectInstanceRepository, solutionRepository);
-   			
-   		
+   			//comment to prevent add the data from file all the time (temporery comment
+   		//	routingtotables.SearchDefects(file2, searchStr,appRepository,defectRepository, logFileRepository,defectInstanceRepository, solutionRepository);
+   		/*	for(int i=0;i<fils.size();i++) {
+   	   			routingtotables.SearchDefects(fils.get(i), searchStr,appRepository,defectRepository, logFileRepository,defectInstanceRepository, solutionRepository);
+
+   			}*/
+   			System.out.println("Hello Sprint Boot");
+
        };
 	 }
 }

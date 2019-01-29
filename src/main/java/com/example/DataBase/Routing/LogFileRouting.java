@@ -76,7 +76,7 @@ public class LogFileRouting {
 					int pos = arr[ErrorPosition].indexOf("-");
 					String ProgramName = arr[ErrorPosition].substring(1, pos - 1);
 					String defCode = arr[ErrorPosition].substring(pos + 1, arr[ErrorPosition].length() - 1);
-					
+					System.out.println("Program Name =    "+ProgramName);
 					tempDefect.setErrorCode(defCode);
 					tempDefect.setSolution(tempsol);
 					tempApp.setName(ProgramName);
