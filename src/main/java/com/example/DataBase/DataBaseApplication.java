@@ -13,8 +13,13 @@ import com.example.DataBase.Repository.LogFileRepository;
 import com.example.DataBase.Repository.SolutionRepository;
 import com.example.DataBase.Routing.LogFileRouting;
 
+import Singlton.objectsHolder;
+
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -27,38 +32,97 @@ public class DataBaseApplication {
   @Autowired 
   private DefectRepository defectRepository;
   
+  
   @Autowired 
   private LogFileRepository logFileRepository;
   
   @Autowired 
   private DefectInstanceRepository defectInstanceRepository;
-	
+
   @Autowired 
   private SolutionRepository solutionRepository;
-	  
+	 public static objectsHolder FILENAME;
+	 final File folder = new File("C:\\Users\\Amr\\git\\AmdocsLog1\\logFiles");
+
 	public static void main(String[] args) {
+		
 		SpringApplication.run(DataBaseApplication.class, args);
+
+	   		
 	}
 	 @Bean
      CommandLineRunner runner(){
        return args -> {
+    	   listFilesForFolder(folder);
     	   
-    	   String searchStr = "Caused by";
-   			File file = new File("CMServer.20170924_1557.log");
-   			File file2 = new File("CMServer.20170914_2028.log");
-ArrayList<File> fils=new ArrayList();
-fils.add(file);
-fils.add(file2);
-   			LogFileRouting routingtotables = new LogFileRouting();
-   			//comment to prevent add the data from file all the time (temporery comment
-   		//	routingtotables.SearchDefects(file2, searchStr,appRepository,defectRepository, logFileRepository,defectInstanceRepository, solutionRepository);
-   		/*	for(int i=0;i<fils.size();i++) {
-   	   			routingtotables.SearchDefects(fils.get(i), searchStr,appRepository,defectRepository, logFileRepository,defectInstanceRepository, solutionRepository);
-
-   			}*/
-   			System.out.println("Hello Sprint Boot");
-
+  				
        };
 	 }
+ public  void listFilesForFolder(final File folder) {
+		 
+
+		Calendar cal = null;
+		while(true) {
+
+		  cal = Calendar.getInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+	
+	   
+	   		 for (final File fileEntry : folder.listFiles()) { //loop on all files
+
+	      	 
+			            System.out.println(fileEntry.getName());
+			     	  FILENAME=new objectsHolder();
+			            FILENAME.setFileName("C:\\Users\\Amr\\git\\AmdocsLog1\\logFiles\\"+fileEntry.getName());
+			            doWork();
+			            try {
+					   		TimeUnit.SECONDS.sleep(10);
+
+				      	} catch (InterruptedException e) {
+				    		// TODO Auto-generated catch block
+				    			System.out.println("Erroe    MINUTE "+ cal.get(Calendar.MINUTE)    + "     Hour" +cal.get(Calendar.HOUR));
+
+				    		e.printStackTrace();
+				    	}
+			    }
+	   		 // if finish files in directory take break for 10 minuts
+			System.out.println("MINUTE "+ cal.get(Calendar.MINUTE)    + "     Hour" +cal.get(Calendar.HOUR));
+	   		try {
+				TimeUnit.MINUTES.sleep(10);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+	
+		}
+	   		
+	   		
+	   		//}
+		   
+		}
+	private void doWork() {
+		// TODO Auto-generated method stub
+	
+   
+   
+   try {
+   
+   String searchStr = "Caused by";
+		
+		LogFileRouting routingtotables = new LogFileRouting();
+
+		if(FILENAME.getFileName()!=null)
+		routingtotables.SearchDefects(FILENAME.getFile(), searchStr,appRepository,defectRepository, logFileRepository,defectInstanceRepository, solutionRepository);
+		
+		System.out.println("Hello Sprint Boot");
+   }
+		catch(Exception e) {
+			System.out.println("Error!!!");
+		}
+			}
+	
+	 
+	
 }
 

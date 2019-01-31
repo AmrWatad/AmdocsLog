@@ -16,5 +16,5 @@ public class LogController {
      public Iterable<App> getApp() {
 		 return repository.findAll();
      } 
-
+//
 }

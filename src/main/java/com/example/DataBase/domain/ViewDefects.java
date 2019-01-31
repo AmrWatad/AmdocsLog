@@ -1,7 +1,6 @@
 package com.example.DataBase.domain;
 
 import java.math.BigInteger;
-
 import javax.persistence.ColumnResult;
 import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;

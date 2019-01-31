@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import com.example.DataBase.DataBaseApplication;
 import com.example.DataBase.Repository.AppRepository;
 import com.example.DataBase.Repository.DefectInstanceRepository;
 import com.example.DataBase.Repository.DefectRepository;
@@ -18,6 +19,7 @@ import com.example.DataBase.domain.Solution;
 
 //@RestController
 public class LogFileRouting {
+	public DataBaseApplication db;
 	
 	public static final int typePosition = 5;
 	public static final int SeverityPosition = 4;
@@ -165,6 +167,9 @@ public class LogFileRouting {
 		//logRepo.saveAll(logFList);
 		//appRepo.saveAll(appList);
 		definsRepo.saveAll(defInsList);
+		db.FILENAME.deleteFile(); // after finsh insert data from file delet the file
+		
+
 }
 	
 
