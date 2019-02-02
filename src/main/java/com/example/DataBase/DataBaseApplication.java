@@ -42,7 +42,8 @@ public class DataBaseApplication {
   @Autowired 
   private SolutionRepository solutionRepository;
 	 public static objectsHolder FILENAME;
-	 final File folder = new File("C:\\Users\\Amr\\git\\AmdocsLog1\\logFiles");
+	 //"C:\\Users\\Amr\\git\\AmdocsLog1\\logFiles"
+	 final File folder = new File("AmdocsLog1\\logFiles");
 
 	public static void main(String[] args) {
 		
