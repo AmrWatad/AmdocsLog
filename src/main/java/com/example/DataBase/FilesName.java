@@ -9,7 +9,8 @@ import java.util.concurrent.TimeUnit;
 
 public class FilesName {
 	DataBaseApplication db;
-	 final File folder = new File("C:\\Users\\Amr\\git\\AmdocsLog1\\logFiles");
+	//("C:\\Users\\Amr\\git\\AmdocsLog1\\logFiles"
+	 final File folder = new File("AmdocsLog1\\logFiles");
 	
 
 	public FilesName() {
@@ -30,7 +31,8 @@ public class FilesName {
 			            listFilesForFolder(fileEntry);
 			        } else {
 			            System.out.println(fileEntry.getName());
-			            db.FILENAME.setFileName("C:\\Users\\Amr\\git\\AmdocsLog1\\logFiles\\"+fileEntry.getName());
+			            //"C:\\Users\\Amr\\git\\AmdocsLog1\\logFiles\\"+fileEntry.getName()
+			            db.FILENAME.setFileName("AmdocsLog1\\logFiles\\"+fileEntry.getName());
 			        }
 			    }
 	   		
