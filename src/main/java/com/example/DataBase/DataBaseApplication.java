@@ -73,7 +73,8 @@ public class DataBaseApplication {
 	      	 
 			            System.out.println(fileEntry.getName());
 			     	  FILENAME=new objectsHolder();
-			            FILENAME.setFileName("C:\\Users\\Amr\\git\\AmdocsLog1\\logFiles\\"+fileEntry.getName());
+			     	  //"C:\\Users\\Amr\\git\\AmdocsLog1\\logFiles\\"+fileEntry.getName()
+			            FILENAME.setFileName("logFiles\\"+fileEntry.getName());
 			            doWork();
 			            try {
 					   		TimeUnit.SECONDS.sleep(10);
@@ -88,7 +89,7 @@ public class DataBaseApplication {
 	   		 // if finish files in directory take break for 10 minuts
 			System.out.println("MINUTE "+ cal.get(Calendar.MINUTE)    + "     Hour" +cal.get(Calendar.HOUR));
 	   		try {
-				TimeUnit.MINUTES.sleep(10);
+				TimeUnit.HOURS.sleep(10);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
