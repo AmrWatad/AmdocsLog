@@ -86,7 +86,7 @@ public class DataBaseApplication {
 
 				    		e.printStackTrace();
 				    	}*/   
-			    }
+			    }  
 	   		 // if finish files in directory take break for 10 minuts
 			System.out.println("MINUTE "+ cal.get(Calendar.MINUTE)    + "     Hour" +cal.get(Calendar.HOUR));
 	   		try {
