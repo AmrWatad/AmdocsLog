@@ -1,6 +1,6 @@
 package com.example.DataBase;
 
-//import  org.assertj.core.api.Assertions.assertThatIllegalStateException;
+import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 public class FilesName {
 	DataBaseApplication db;
 	//("C:\\Users\\Amr\\git\\AmdocsLog1\\logFiles"
-	 final File folder = new File("AmdocsLog1\\logFiles");
+	 final File folder = new File("logFiles");
 	
 
 	public FilesName() {
@@ -32,7 +32,7 @@ public class FilesName {
 			        } else {
 			            System.out.println(fileEntry.getName());
 			            //"C:\\Users\\Amr\\git\\AmdocsLog1\\logFiles\\"+fileEntry.getName()
-			            db.FILENAME.setFileName("AmdocsLog1\\logFiles\\"+fileEntry.getName());
+			            db.FILENAME.setFileName("logFiles\\"+fileEntry.getName());
 			        }
 			    }
 	   		
