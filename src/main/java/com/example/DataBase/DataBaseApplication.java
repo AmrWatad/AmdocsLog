@@ -85,7 +85,7 @@ public class DataBaseApplication {
 				    			System.out.println("Erroe    MINUTE "+ cal.get(Calendar.MINUTE)    + "     Hour" +cal.get(Calendar.HOUR));
 
 				    		e.printStackTrace();
-				    	}*/
+				    	}*/   
 			    }
 	   		 // if finish files in directory take break for 10 minuts
 			System.out.println("MINUTE "+ cal.get(Calendar.MINUTE)    + "     Hour" +cal.get(Calendar.HOUR));
