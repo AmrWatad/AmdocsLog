@@ -32,7 +32,7 @@ public class FilesName {
 			        } else {
 			            System.out.println(fileEntry.getName());
 			            //"C:\\Users\\Amr\\git\\AmdocsLog1\\logFiles\\"+fileEntry.getName()
-			            db.FILENAME.setFileName("AmdocsLog\\logFiles\\"+fileEntry.getName());
+			            db.FILENAME.setFileName("logFiles\\"+fileEntry.getName());
 			        }
 			    }
 	   		
