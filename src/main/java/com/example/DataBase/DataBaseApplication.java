@@ -85,16 +85,16 @@ public class DataBaseApplication {
 				    			System.out.println("Erroe    MINUTE "+ cal.get(Calendar.MINUTE)    + "     Hour" +cal.get(Calendar.HOUR));
 
 				    		e.printStackTrace();
-				    	}*/  
+				    	}*/
 			    }
 	   		 // if finish files in directory take break for 10 minuts
-		//	System.out.println("MINUTE "+ cal.get(Calendar.MINUTE)    + "     Hour" +cal.get(Calendar.HOUR));
-	  /* 		try {
+			System.out.println("MINUTE "+ cal.get(Calendar.MINUTE)    + "     Hour" +cal.get(Calendar.HOUR));
+	   		try {
 				TimeUnit.MINUTES.sleep(5);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}*/
+			}
 
 	
 		}
