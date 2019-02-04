@@ -69,13 +69,13 @@ public class DataBaseApplication {
 		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 	
 	   
-	   		 for (final File fileEntry : folder.listFiles()) { //loop on all files
+	   		 for (File fileEntry : folder.listFiles()) { //loop on all files
 
 	      	 
 			          //  System.out.println(fileEntry.getName());
 			     	  FILENAME=new objectsHolder();
 			     	  //"C:\\Users\\Amr\\git\\AmdocsLog1\\logFiles\\"+fileEntry.getName()
-			            FILENAME.setFileName("logFiles\\"+fileEntry.getName());
+			            FILENAME.setFileName("AmdocsLog\\logFiles\\"+fileEntry.getName());
 			            doWork();
 			           /* try {
 					   		TimeUnit.SECONDS.sleep(10);
