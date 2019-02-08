@@ -167,7 +167,7 @@ public class LogFileRouting {
 		//logRepo.saveAll(logFList);
 		//appRepo.saveAll(appList);
 		definsRepo.saveAll(defInsList);
-		db.FILENAME.deleteFile(); // after finsh insert data from file delet the file
+		//db.FILENAME.deleteFile(); // after finsh insert data from file delet the file
 		
 
 }
