@@ -44,8 +44,6 @@ public class DataBaseApplication {
 	 public static objectsHolder FILENAME;
 	 //final File folder = new File("C:\\Users\\Amr\\git\\AmdocsLog1\\logFiles");
 	 final File folder = new File("logFiles");
-	 final File folder2 = new File("TestLog.log");
-
 
 	public static void main(String[] args) {
 		
@@ -56,21 +54,7 @@ public class DataBaseApplication {
 	 @Bean
      CommandLineRunner runner(){
        return args -> {
-    	  // listFilesForFolder(folder);
-    	   try {
-    		   
-    		   String searchStr = "Caused by";
-    				
-    				LogFileRouting routingtotables = new LogFileRouting();
-
-    				//if(FILENAME.getFileName()!=null)
-    				routingtotables.SearchDefects(folder2, searchStr,appRepository,defectRepository, logFileRepository,defectInstanceRepository, solutionRepository);
-    				
-    				System.out.println("Hello Sprint Boot");
-    		   }
-    				catch(Exception e) {
-    					System.out.println("Error!!!");
-    				}
+    	   listFilesForFolder(folder);
     	   
   				
        };
