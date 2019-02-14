@@ -43,7 +43,7 @@ public class DataBaseApplication {
   private SolutionRepository solutionRepository;
 	 public static objectsHolder FILENAME;
 	 //final File folder = new File("C:\\Users\\Amr\\git\\AmdocsLog1\\logFiles");
-	 final File folder = new File("logFiles");
+	 final File folder = new File("\\logFiles");
 
 	public static void main(String[] args) {
 		
@@ -71,21 +71,13 @@ public class DataBaseApplication {
 	   
 	   		 for (final File fileEntry : folder.listFiles()) { //loop on all files
 
-	      	 
+	      	
 			          //  System.out.println(fileEntry.getName());
 			     	  FILENAME=new objectsHolder();
 			     	  //"C:\\Users\\Amr\\git\\AmdocsLog1\\logFiles\\"+fileEntry.getName()
-			            FILENAME.setFileName("logFiles\\"+fileEntry.getName());
+			            FILENAME.setFileName("\\logFiles\\"+fileEntry.getName());
 			            doWork();
-			           /* try {
-					   		TimeUnit.SECONDS.sleep(10);
-					   			
-				      	} catch (InterruptedException e) {
-				    		// TODO Auto-generated catch block
-				    			System.out.println("Erroe    MINUTE "+ cal.get(Calendar.MINUTE)    + "     Hour" +cal.get(Calendar.HOUR));
-
-				    		e.printStackTrace();
-				    	}*/   
+			         
 			    }  
 	   		 // if finish files in directory take break for 10 minuts
 			System.out.println("MINUTE "+ cal.get(Calendar.MINUTE)    + "     Hour" +cal.get(Calendar.HOUR));
