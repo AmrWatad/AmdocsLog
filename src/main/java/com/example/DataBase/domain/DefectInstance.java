@@ -11,6 +11,7 @@ import javax.persistence.SqlResultSetMapping;
 import javax.persistence.ConstructorResult;
 
 import java.math.BigInteger;
+import java.text.SimpleDateFormat;
 
 import javax.persistence.ColumnResult;
 
@@ -94,7 +95,6 @@ import javax.persistence.ColumnResult;
 
 
 //------------------------------------------------------sql result mapping------------------------------------------------------------
-
 @SqlResultSetMapping(
 		name="AppSeverityPercentMapping",
 	    classes={
@@ -107,16 +107,45 @@ import javax.persistence.ColumnResult;
 	    }
 	)
 
+@SqlResultSetMapping(
+		name="AppSSeverityPercentMapping",
+	    classes={
+	        @ConstructorResult(
+	        		targetClass=SeverityAppPercent.class,
+	            columns={
+	                @ColumnResult(name="percentage", type = String.class)
+	                ,@ColumnResult(name="severity", type = String.class)
+	            }
+	        )
+	    }
+	)
+
 //------------------------------------------------------ sql query---------------------------------------------------------------------
-@NamedNativeQuery(name = "DefectInstance.getSeverityAppPercent", 
+@NamedNativeQuery(name = "DefectInstance.getSeverityAppPercentDate", 
 query = "select concat(cast(cast( count(*) as float)/ cast((select count(*)  "
 		+ " from defect_instance di) as float)*100 as decimal(7,2)),'%') AS percentage  from "
 		+ "defect_instance aa, app bb, defect cc , log_file dd " // tables
-		+ " where aa.log_fileid=dd.id and aa.appid=bb.id and aa.defectid=cc.id and dd.ftime='today' and " //connect
+		+ " where aa.log_fileid=dd.id and aa.appid=bb.id and aa.defectid=cc.id and dd.fdate=:fdate" +" and " //connect
 		+ "bb.name=:appName and cc.severity=:severity group by severity"  //param input
 , resultSetMapping = "AppSeverityPercentMapping")
 
 
+
+@NamedNativeQuery(name = "DefectInstance.getSeverityAppPercent", 
+query = "select concat(cast(cast( count(*) as float)/ cast((select count(*)  "
+		+ " from defect_instance di) as float)*100 as decimal(7,2)),'%') AS percentage  from "
+		+ "defect_instance aa, app bb, defect cc , log_file dd " // tables
+		+ " where aa.log_fileid=dd.id and aa.appid=bb.id and aa.defectid=cc.id " +" and " //connect
+		+ "bb.name=:appName and cc.severity=:severity group by severity"  //param input
+, resultSetMapping = "AppSeverityPercentMapping")
+
+@NamedNativeQuery(name = "DefectInstance.getSeveritiesAppPercent", 
+query = "select concat(cast(cast( count(*) as float)/ cast((select count(*)  "
+		+ " from defect_instance di) as float)*100 as decimal(7,2)),'%') AS percentage ,severity from "
+		+ "defect_instance aa, app bb, defect cc , log_file dd " // tables
+		+ " where aa.log_fileid=dd.id and aa.appid=bb.id and aa.defectid=cc.id " +" and " //connect
+		+ "bb.name=:appName  group by severity"  //param input
+, resultSetMapping = "AppSSeverityPercentMapping")
 
 public class DefectInstance  {
 

@@ -22,8 +22,19 @@ public class SeverityAppPercentController {
 	@Autowired
 	private DefectInstanceRepository repository;
 
+	@GetMapping(value = "/{appName}/{severity}/{fdate}") 
+	public ArrayList<SeverityAppPercent> getSeverityAppPercentDate(@PathVariable final String appName,@PathVariable final String severity
+			,@PathVariable final String fdate) {
+		return repository.getSeverityAppPercentDate(appName,severity,fdate);
+	}
 	@GetMapping(value = "/{appName}/{severity}") 
-	public ArrayList<SeverityAppPercent> getSeverityAppPercent(@PathVariable final String appName,@PathVariable final String severity) {
+	public ArrayList<SeverityAppPercent> getSeverityAppPercent(@PathVariable final String appName,@PathVariable final String severity
+			) {
 		return repository.getSeverityAppPercent(appName,severity);
+	}
+	@GetMapping(value = "/{appName}") 
+	public ArrayList<SeverityAppPercent> getSeveritiesAppPercent(@PathVariable final String appName
+			) {
+		return repository.getSeveritiesAppPercent(appName);
 	}
 }

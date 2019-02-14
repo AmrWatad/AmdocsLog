@@ -27,8 +27,16 @@ public interface DefectInstanceRepository extends CrudRepository<DefectInstance,
 	ArrayList<AppPercent> getAppPercent();
 	
 	@Query(nativeQuery = true)
+	ArrayList<SeverityAppPercent> getSeverityAppPercentDate(@Param("appName") String appName ,@Param("severity") String severity,@Param("fdate") String fdate);
+
+	@Query(nativeQuery = true)
 	ArrayList<SeverityAppPercent> getSeverityAppPercent(@Param("appName") String appName ,@Param("severity") String severity);
 
+
+	@Query(nativeQuery = true)
+	ArrayList<SeverityAppPercent> getSeveritiesAppPercent(@Param("appName") String appName);
+
+	
 	//ArrayList<SeverityAppPercent> getSeverityAppPercent(@Param("appName") String appName ,@Param("severity") String severity);
 	
 	
