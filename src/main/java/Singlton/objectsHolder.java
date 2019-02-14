@@ -23,7 +23,7 @@ public class objectsHolder {
 
 
     public String getFileName(){
-    	file2=new File(FileName);
+    	file2=new File(FileName+".txt");
         return this.FileName;
     }
   public void deleteFile() {
