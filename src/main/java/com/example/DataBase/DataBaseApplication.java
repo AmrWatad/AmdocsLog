@@ -75,7 +75,7 @@ public class DataBaseApplication {
 			          //  System.out.println(fileEntry.getName());
 			     	  FILENAME=new objectsHolder();
 			     	  //"C:\\Users\\Amr\\git\\AmdocsLog1\\logFiles\\"+fileEntry.getName()
-			            FILENAME.setFileName("/" + DataBaseApplication.class.getProtectionDomain().getCodeSource().getLocation().getPath() +"logFiles\\"+fileEntry.getName());
+			            FILENAME.setFileName("/" + DataBaseApplication.class.getProtectionDomain().getCodeSource().getLocation().getPath() +"logFiles."+fileEntry.getName());
 			            doWork();
 			           /* try {
 					   		TimeUnit.SECONDS.sleep(10);
