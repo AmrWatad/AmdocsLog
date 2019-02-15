@@ -43,7 +43,7 @@ public class DataBaseApplication {
   private SolutionRepository solutionRepository;
 	 public static objectsHolder FILENAME;
 	 //final File folder = new File("C:\\Users\\Amr\\git\\AmdocsLog1\\logFiles");
-	 final File folder = new File("/" + DataBaseApplication.class.getProtectionDomain().getCodeSource().getLocation().getPath()  + "/logfiles2");
+	 final File folder = new File("CMServer.20170914_2028.log");
 
 	public static void main(String[] args) {
 		
@@ -54,12 +54,12 @@ public class DataBaseApplication {
 	 @Bean
      CommandLineRunner runner(){
        return args -> {
-    	   listFilesForFolder(folder);
-    	   
+    	   //listFilesForFolder(folder);
+    	   doWork();
   				
        };
 	 }
- public  void listFilesForFolder(final File folder) {
+/* public  void listFilesForFolder(final File folder) {
 		 
 
 		Calendar cal = null;
@@ -75,11 +75,7 @@ public class DataBaseApplication {
 			          //  System.out.println(fileEntry.getName());
 			     	  FILENAME=new objectsHolder();
 			     	  //"C:\\Users\\Amr\\git\\AmdocsLog1\\logFiles\\"+fileEntry.getName()
-			     	 String path = "/" + DataBaseApplication.class.getProtectionDomain().getCodeSource().getLocation().getPath()  + "/logfiles2/"+fileEntry.getName();
-
-			            //FILENAME.setFileName("logFiles\\"+fileEntry.getName());
-			            FILENAME.setFileName(path);
-
+			            FILENAME.setFileName("logFiles\\"+fileEntry.getName());
 			            doWork();
 			         
 			    }  
@@ -99,7 +95,7 @@ public class DataBaseApplication {
 	   		//}
 		   
 		}
-	private void doWork() {
+*/	private void doWork() {
 		// TODO Auto-generated method stub
 	
    
@@ -110,8 +106,8 @@ public class DataBaseApplication {
 		
 		LogFileRouting routingtotables = new LogFileRouting();
 
-		if(FILENAME.getFileName()!=null)
-		routingtotables.SearchDefects(FILENAME.getFile(), searchStr,appRepository,defectRepository, logFileRepository,defectInstanceRepository, solutionRepository);
+	//	if(FILENAME.getFileName()!=null)
+		routingtotables.SearchDefects(folder, searchStr,appRepository,defectRepository, logFileRepository,defectInstanceRepository, solutionRepository);
 		
 		System.out.println("Hello Sprint Boot");
    }
