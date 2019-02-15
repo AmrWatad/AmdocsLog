@@ -43,7 +43,7 @@ public class DataBaseApplication {
   private SolutionRepository solutionRepository;
 	 public static objectsHolder FILENAME;
 	 //final File folder = new File("C:\\Users\\Amr\\git\\AmdocsLog1\\logFiles");
-	 final File folder = new File("/" + DataBaseApplication.class.getProtectionDomain().getCodeSource().getLocation().getPath()  + "logFiles");
+	 final File folder = new File("/" + DataBaseApplication.class.getProtectionDomain().getCodeSource().getLocation().getPath()  + "/logFiles");
 
 	public static void main(String[] args) {
 		
@@ -75,7 +75,7 @@ public class DataBaseApplication {
 			          //  System.out.println(fileEntry.getName());
 			     	  FILENAME=new objectsHolder();
 			     	  //"C:\\Users\\Amr\\git\\AmdocsLog1\\logFiles\\"+fileEntry.getName()
-			     	 String path = "/" + DataBaseApplication.class.getProtectionDomain().getCodeSource().getLocation().getPath()  + "logFiles/"+fileEntry.getName();
+			     	 String path = "/" + DataBaseApplication.class.getProtectionDomain().getCodeSource().getLocation().getPath()  + "/logFiles/"+fileEntry.getName();
 
 			            //FILENAME.setFileName("logFiles\\"+fileEntry.getName());
 			            FILENAME.setFileName(path);
