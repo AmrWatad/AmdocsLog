@@ -2,13 +2,21 @@ package com.example.DataBase.Routing;
 
 
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Scanner;
 
+import com.dropbox.core.DbxException;
+import com.dropbox.core.v2.files.Metadata;
 import com.example.DataBase.DataBaseApplication;
 import com.example.DataBase.Repository.AppRepository;
 import com.example.DataBase.Repository.DefectInstanceRepository;
@@ -20,6 +28,8 @@ import com.example.DataBase.domain.Defect;
 import com.example.DataBase.domain.DefectInstance;
 import com.example.DataBase.domain.LogFile;
 import com.example.DataBase.domain.Solution;
+
+import dropBox.DBClientService;
 
 //@RestController
 public class LogFileRouting {
@@ -35,7 +45,7 @@ public class LogFileRouting {
 	public List<DefectInstance> defInsList = new ArrayList<DefectInstance>();
 	public List<LogFile> logFList = new ArrayList<LogFile>();
 	public List<Solution> solList = new ArrayList<Solution>();
-	
+	DBClientService dbClient=new DBClientService();
 	
 
 //	  @Autowired 
@@ -57,32 +67,52 @@ public class LogFileRouting {
 		
 //----------------------------------------------------------controller methods-----------------------------------------------------------
 	
-	public void SearchDefects(File file, String searchStr,AppRepository appRepo, DefectRepository defRepo, LogFileRepository logRepo, DefectInstanceRepository definsRepo, SolutionRepository solRepo) throws Exception 
+	public void SearchDefects(Metadata metadata, String searchStr,AppRepository appRepo, DefectRepository defRepo, LogFileRepository logRepo, DefectInstanceRepository definsRepo, SolutionRepository solRepo) throws Exception 
 	
 	{
 		
-
+		 String my_link = null;
+         URL my_url = null;
+         URLConnection conn = null;
+         BufferedReader reader = null;
+         try {
+         	String line="";
+             my_link = dbClient.client.files().getTemporaryLink(metadata.getPathLower()).getLink();//.files().getTemporaryLink(metadata.getPathLower()).getLink();
+             my_url = new URL (my_link);
+             conn = my_url.openConnection();
+             reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            
+            /* while( (line = reader.readLine()) != null ) {
+             	System.out.println("read!!    "+line);
+             }*/
+         } catch (DbxException e) {
+             e.printStackTrace();
+         } catch (MalformedURLException e) {
+             e.printStackTrace();
+         } catch (IOException e) {
+             e.printStackTrace();
+         }
 		
 		int Counter = 0;
-		Scanner scanFile = new Scanner(file);
-		String line = scanFile.nextLine().toString();
+		//Scanner scanFile = new Scanner(metadata);
+		String line = reader.readLine().toString();
 		
 		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
 		SimpleDateFormat timeformat = new SimpleDateFormat("HH:mm:ss");
 		
-		LogFile templogfile = new LogFile(file.getName(),timeformat.format(Calendar.getInstance().getTime()),dateformat.format(Calendar.getInstance().getTime()));
+		LogFile templogfile = new LogFile(metadata.getName(),timeformat.format(Calendar.getInstance().getTime()),dateformat.format(Calendar.getInstance().getTime()));
 		Solution tempsol = new Solution("Magic solution","turn of your device");
 		
 		
-		while (scanFile.hasNext()) {
+		while ((line = reader.readLine()) != null) {
 			
-			
+			System.out.println("hoon routing   "+ line);
 			Defect tempDefect = new Defect() ;
 			App tempApp = new App() ;
 			DefectInstance tempDefectInstance = new DefectInstance();
-			line = scanFile.nextLine().toString();
+			//line = scanFile.nextLine().toString();
 			String arr[] = line.split(" ");
-			
+			 
 			if (arr.length > ErrorPosition && line.contains(searchStr)) {
 				if (arr[ErrorPosition].startsWith("(") && arr[ErrorPosition].endsWith(")")) {
 					Counter++;
@@ -166,7 +196,7 @@ public class LogFileRouting {
 	}
 		logFList.add(templogfile);
 		System.out.println(Counter + " '" + searchStr + "' founded in log file " );
-		scanFile.close();
+		//scanFile.close();
 		
 		
 		//defRepo.deleteAll();
@@ -178,9 +208,11 @@ public class LogFileRouting {
 		//logRepo.saveAll(logFList);
 		//appRepo.saveAll(appList);
 		definsRepo.saveAll(defInsList);
-	//	db.FILENAME.deleteFile(); // after finsh insert data from file delet the file
+		//db.FILENAME.deleteFile(); // after finsh insert data from file delet the file
+System.out.println("metadata.getPathLower()="+metadata.getPathLower());
 
-
+		dbClient.client.files().delete(metadata.getPathLower());
+		
 }
 	
 

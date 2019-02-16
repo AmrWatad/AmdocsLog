@@ -14,109 +14,183 @@ import com.example.DataBase.Repository.SolutionRepository;
 import com.example.DataBase.Routing.LogFileRouting;
 
 import Singlton.objectsHolder;
+import dropBox.DBClientService;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.net.ssl.HttpsURLConnection;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import com.dropbox.core.DbxException;
+import com.dropbox.core.DbxRequestConfig;
+import com.dropbox.core.v2.DbxClientV2;
+import com.dropbox.core.v2.files.ListFolderContinueErrorException;
+import com.dropbox.core.v2.files.ListFolderResult;
+import com.dropbox.core.v2.files.Metadata;
+import com.dropbox.core.v2.users.FullAccount;
 
 @SpringBootApplication
 public class DataBaseApplication {
-	  @Autowired 
-  private AppRepository appRepository;
+	private static final String ACCESS_TOKEN = "pg0aUInzQ7AAAAAAAAAAvbQZX4_ZpEHduyd6ZXzkoz9wSUFhlshXQtYRjOWyYNyo";
 
-  @Autowired 
-  private DefectRepository defectRepository;
-  
-  
-  @Autowired 
-  private LogFileRepository logFileRepository;
-  
-  @Autowired 
-  private DefectInstanceRepository defectInstanceRepository;
+	@Autowired
+	private AppRepository appRepository;
 
-  @Autowired 
-  private SolutionRepository solutionRepository;
-	 public static objectsHolder FILENAME;
-	 //final File folder = new File("C:\\Users\\Amr\\git\\AmdocsLog1\\logFiles");
-	 final File folder = new File("CMServer.20170914_2028.log");
+	@Autowired
+	private DefectRepository defectRepository;
 
-	public static void main(String[] args) {
-		
+	@Autowired
+	private LogFileRepository logFileRepository;
+
+	@Autowired
+	private DefectInstanceRepository defectInstanceRepository;
+
+	@Autowired
+	private SolutionRepository solutionRepository;
+	public static objectsHolder FILENAME;
+	DBClientService dbClient;
+	// final File folder = new File("C:\\Users\\Amr\\git\\AmdocsLog1\\logFiles");
+	// final File folder = new File("logFiles");
+
+	public static void main(String[] args) throws DbxException {
+
 		SpringApplication.run(DataBaseApplication.class, args);
 
-	   		
 	}
-	 @Bean
-     CommandLineRunner runner(){
-       return args -> {
-    	   //listFilesForFolder(folder);
-    	   doWork();
-  				
-       };
-	 }
-/* public  void listFilesForFolder(final File folder) {
-		 
 
+	@Bean
+	CommandLineRunner runner() {
+		return args -> {
+			dbClient = new DBClientService();
+			listFilesForFolder(dbClient.result);
+
+		};
+	}
+
+	private static String read(InputStream in) throws IOException {
+		StringBuilder builder = new StringBuilder();
+
+		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+
+		String line = null;
+		while ((line = reader.readLine()) != null)
+			builder.append(line);
+
+		return builder.toString();
+	}
+
+	public void listFilesForFolder(final ListFolderResult result1) {
+
+		System.out.println("listFilesForFolder");
 		Calendar cal = null;
-		while(true) {
+		while (true) {
+			cal = Calendar.getInstance();
+			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+			dbClient = new DBClientService();
+			ListFolderResult result=dbClient.result;
+			// for (final File fileEntry : result.listFiles()) { //loop on all files
 
-		  cal = Calendar.getInstance();
-		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-	
-	   
-	   		 for (final File fileEntry : folder.listFiles()) { //loop on all files
+			for (Metadata metadata : result.getEntries()) {
+				System.out.println("for (Metadata metadata : result.getEntries())");
+				if(result.getEntries().size()>0);
+				doWork(metadata);
 
-	      	
-			          //  System.out.println(fileEntry.getName());
-			     	  FILENAME=new objectsHolder();
-			     	  //"C:\\Users\\Amr\\git\\AmdocsLog1\\logFiles\\"+fileEntry.getName()
-			            FILENAME.setFileName("logFiles\\"+fileEntry.getName());
-			            doWork();
-			         
-			    }  
-	   		 // if finish files in directory take break for 10 minuts
-			System.out.println("MINUTE "+ cal.get(Calendar.MINUTE)    + "     Hour" +cal.get(Calendar.HOUR));
-	   		try {
-				TimeUnit.MINUTES.sleep(5);
+			}
+			
+
+			try {
+				dbClient.result = dbClient.client.files().listFolderContinue(result.getCursor());
+			} catch (ListFolderContinueErrorException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (DbxException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			// if finish files in directory take break for 10 minuts
+			System.out.println("MINUTE " + cal.get(Calendar.MINUTE) + "     Hour" + cal.get(Calendar.HOUR));
+
+			fadyRequest();
+
+			try {
+
+				TimeUnit.MINUTES.sleep(30);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
-	
 		}
-	   		
-	   		
-	   		//}
-		   
+
+		// }
+
+	}
+
+	private void fadyRequest() {
+		String fadyUrl = "https://loggitor-be-test.herokuapp.com/runActionSys";
+
+		URL url = null;
+		try {
+			url = new URL(fadyUrl);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-*/	private void doWork() {
+
+		HttpsURLConnection con = null;
+		try {
+			con = (HttpsURLConnection) url.openConnection();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		InputStream in = null;
+		try {
+			in = con.getInputStream();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String json = null;
+		try {
+			json = read(in);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	private void doWork(Metadata metadata) {
 		// TODO Auto-generated method stub
-	
-   
-   
-   try {
-   
-   String searchStr = "Caused by";
-		
-		LogFileRouting routingtotables = new LogFileRouting();
 
-	//	if(FILENAME.getFileName()!=null)
-		routingtotables.SearchDefects(folder, searchStr,appRepository,defectRepository, logFileRepository,defectInstanceRepository, solutionRepository);
-		
-		System.out.println("Hello Sprint Boot");
-   }
-		catch(Exception e) {
+		try {
+
+			String searchStr = "Caused by";
+
+			LogFileRouting routingtotables = new LogFileRouting();
+			System.out.println("almfrod yozbo6!!!    " + metadata.getName());
+			// if(FILENAME.getFileName()!=null)
+			routingtotables.SearchDefects(metadata, searchStr, appRepository, defectRepository, logFileRepository,
+					defectInstanceRepository, solutionRepository);
+
+			System.out.println("Hello Sprint Boot");
+		} catch (Exception e) {
 			System.out.println("Error!!!");
+			e.printStackTrace();
 		}
-			}
-	
-	 
-	
-}
+	}
 
+}
