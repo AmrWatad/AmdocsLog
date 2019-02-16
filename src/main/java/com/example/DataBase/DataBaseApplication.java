@@ -101,12 +101,18 @@ public class DataBaseApplication {
 			ListFolderResult result=dbClient.result;
 			// for (final File fileEntry : result.listFiles()) { //loop on all files
 
-			for (Metadata metadata : result.getEntries()) {
+			for(int i=0;i<result.getEntries().size();i++) {
+				System.out.println("for (Metadata metadata : result.getEntries())");
+				System.out.println( result.getEntries().get(i).getName() );
+
+				doWork(result.getEntries().get(i));
+			}
+		/*	for (Metadata metadata : result.getEntries()) {
 				System.out.println("for (Metadata metadata : result.getEntries())");
 				if(result.getEntries().size()>0);
 				doWork(metadata);
 
-			}
+			}*/
 			
 
 			try {
@@ -125,7 +131,7 @@ public class DataBaseApplication {
 
 			try {
 
-				TimeUnit.MINUTES.sleep(30);
+				TimeUnit.MINUTES.sleep(1);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
