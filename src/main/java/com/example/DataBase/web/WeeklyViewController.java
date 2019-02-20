@@ -20,7 +20,16 @@ public class WeeklyViewController {
 
 	@Autowired
 	private DefectInstanceRepository repository;
+	@RequestMapping(value="")
+	public ArrayList<WeeklyView> getWeeklyView() {
+		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(Calendar.getInstance().getTime());
+		calendar.add(Calendar.DATE, -21);
+		return repository.getWeeklyView(dateformat.format(Calendar.getInstance().getTime()),
+				dateformat.format(calendar.getTime()));
 
+	}
 	@RequestMapping(value="1")
 	public ArrayList<WeeklyView> getWeeklyView1() {
 		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
