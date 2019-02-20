@@ -2,29 +2,69 @@ package com.example.DataBase.Repository;
 
 import java.util.ArrayList;
 
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.DataBase.domain.AppPercent;
+import com.example.DataBase.domain.AppPercentApp;
+import com.example.DataBase.domain.AppPercentSeverity;
 import com.example.DataBase.domain.DefectInstance;
 import com.example.DataBase.domain.SeverityAppPercent;
 import com.example.DataBase.domain.SeverityPercent;
+import com.example.DataBase.domain.SeverityPercentApp;
+import com.example.DataBase.domain.SeverityPercentSeverity;
 import com.example.DataBase.domain.ViewDefects;
-@RepositoryRestResource
+import com.example.DataBase.domain.ViewDefectsApp;
+import com.example.DataBase.domain.WeeklyView;
+
+
 public interface DefectInstanceRepository extends CrudRepository<DefectInstance, Long>{
 
+//----------------------------------------------------viewdefects/app/severity----------------------------------------------------------
+	@Query(nativeQuery = true)
+	ArrayList<ViewDefects> getViewDefects(@Param("todayDate") String todayDate,@Param("limit") int limit,@Param("offset") int offset);
 	
 	@Query(nativeQuery = true)
-	ArrayList<ViewDefects> getViewDefects();
+	ArrayList<ViewDefectsApp> getViewDefectsApp(@Param("appName") String appName,@Param("todayDate") String todayDate,@Param("limit") int limit,@Param("offset") int offset);
 	
 	@Query(nativeQuery = true)
-	ArrayList<SeverityPercent> getSeverityPercent();
+	ArrayList<ViewDefectsApp> getViewDefectsSeverity(@Param("severityName") String appName,@Param("todayDate") String todayDate,@Param("limit") int limit,@Param("offset") int offset);
+	
+//----------------------------------------------------apppercent/app/severity----------------------------------------------------------	
+	
+	@Query(nativeQuery = true)
+	ArrayList<AppPercent> getAppPercent(@Param("todayDate") String todayDate);
+	
+	@Query(nativeQuery = true)
+	ArrayList<AppPercentApp> getAppPercentApp(@Param("appName") String appName, @Param("todayDate") String todayDate);
+	
+	@Query(nativeQuery = true)
+	ArrayList<AppPercentSeverity> getAppPercentSeverity(@Param("severityName") String severityName, @Param("todayDate") String todayDate);
+	
+//----------------------------------------------------severitypercent/app/severity----------------------------------------------------------	
+	
+	@Query(nativeQuery = true)
+	ArrayList<SeverityPercent> getSeverityPercent(@Param("todayDate") String todayDate);
+	
+	@Query(nativeQuery = true)
+	ArrayList<SeverityPercentApp> getSeverityPercentApp(@Param("appName") String severityName, @Param("todayDate") String todayDate);
 
 	@Query(nativeQuery = true)
-	ArrayList<AppPercent> getAppPercent();
+	ArrayList<SeverityPercentSeverity> getSeverityPercentSeverity(@Param("severityName") String severityName, @Param("todayDate") String todayDate);
+
+//----------------------------------------------------weekly view----------------------------------------------------------	
+	
+	@Query(nativeQuery = true)
+    ArrayList<WeeklyView> getWeeklyView(@Param("currdate") String currdate, @Param("weekbefore") String weekbefore);
+	
+	@Query(nativeQuery = true)
+    ArrayList<WeeklyView> getTwoWeeklyView(@Param("currdate") String currdate, @Param("weekbefore") String weekbefore,@Param("app") String app);
+	
+
+	
+	
 	
 	@Query(nativeQuery = true)
 	ArrayList<SeverityAppPercent> getSeverityAppPercentDate(@Param("appName") String appName ,@Param("severity") String severity,@Param("fdate") String fdate);
@@ -36,10 +76,5 @@ public interface DefectInstanceRepository extends CrudRepository<DefectInstance,
 	@Query(nativeQuery = true)
 	ArrayList<SeverityAppPercent> getSeveritiesAppPercent(@Param("appName") String appName);
 
-	
-	//ArrayList<SeverityAppPercent> getSeverityAppPercent(@Param("appName") String appName ,@Param("severity") String severity);
-	
-	
-	
 	
 }
