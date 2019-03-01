@@ -37,7 +37,7 @@ public class ViewDefectController {
 		int limit = pageSize;
 		int offset = pageNumber - 1;
 		offset = offset * limit;
-		return repository.getViewDefects(/* dateformat.format(Calendar.getInstance().getTime()) */"2019-02-11", limit,
+		return repository.getViewDefects(/* dateformat.format(Calendar.getInstance().getTime()) */"2019-02-16", limit,
 				offset);
 	}
 
@@ -51,7 +51,7 @@ public class ViewDefectController {
 		int limit = pageSize;
 		int offset = pageNumber - 1;
 		offset = offset * limit;
-		return repositoryApp.getViewDefectsApp(appName,/*dateformat.format(Calendar.getInstance().getTime())*/"2019-02-11", limit, offset);
+		return repositoryApp.getViewDefectsApp(appName,/*dateformat.format(Calendar.getInstance().getTime())*/"2019-02-16", limit, offset);
 
 	}
 
