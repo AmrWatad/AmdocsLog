@@ -1,5 +1,5 @@
 # AmdocsLog System
-An application for monitoring and analyzing errors in the log file
+An application for monitoring and analyzing errors in the log file  
 Why?
 Tech support engineers go over the logs, and try to get the correct impression of there were any critical issues, or errors that need to be handled. 
 
