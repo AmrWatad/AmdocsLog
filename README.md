@@ -12,6 +12,6 @@ Angular, JS, HTML/CSS and Agile development methodology Project,
 in collaboration with Amdocs Monitoring and control system that identifies defects
 and their severity on Amdocs systems logs for their technical support team internal usage.
 
-🌐 https://drive.google.com/drive/u/0/folders/1a9BWXp-rjsXnBDInpLuaC9xnPgEK2LOo
+🌐  https://drive.google.com/drive/u/0/folders/1a9BWXp-rjsXnBDInpLuaC9xnPgEK2LOo
 
-🌐 https://loggitor-fe.herokuapp.com/about
+🌐  https://loggitor-fe.herokuapp.com/about
